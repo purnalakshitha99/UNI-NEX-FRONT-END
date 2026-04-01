@@ -5,6 +5,7 @@ import AuthService from '../services/authService';
 const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
   const [theme, setTheme] = useState('light');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const Navbar = () => {
   const handleLogout = () => {
     AuthService.logout();
     setCurrentUser(null);
+    setIsMobileMenuOpen(false);
     navigate('/auth');
   };
 
@@ -48,14 +50,16 @@ const Navbar = () => {
     document.documentElement.setAttribute('data-theme', nextTheme);
   };
 
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
-    <nav className="sticky top-0 z-50 bg-blue-700/80 backdrop-blur-md border-b border-blue-500/30 px-6 py-4 shadow-xl">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="flex items-center gap-2">
+    <nav className="sticky top-0 z-50 bg-blue-700/80 backdrop-blur-md border-b border-blue-500/30 px-3 sm:px-6 py-3 sm:py-4 shadow-xl">
+      <div className="max-w-7xl mx-auto flex justify-between items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 min-w-0">
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
             <span className="text-blue-700 font-extrabold text-xl">E</span>
           </div>
-          <Link to="/" className="text-white text-2xl font-extrabold tracking-tight hover:text-blue-100 transition duration-300">
+          <Link to="/" className="text-white text-2xl font-extrabold tracking-tight hover:text-blue-100 transition duration-300 truncate">
             EventManager
           </Link>
         </div>
@@ -69,10 +73,10 @@ const Navbar = () => {
           <Link to="/create-event" className="hover:text-white transition-colors duration-300">Event Creation</Link>
         </div>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 sm:gap-4 items-center">
           <button
             onClick={handleThemeToggle}
-            className="bg-white/10 hover:bg-white/20 text-white border border-white/20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+            className="bg-white/10 hover:bg-white/20 text-white border border-white/20 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300"
             title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
@@ -86,8 +90,15 @@ const Navbar = () => {
               </svg>
             )}
           </button>
+          <button
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            className="md:hidden bg-white/10 hover:bg-white/20 text-white border border-white/20 h-9 px-4 rounded-full flex items-center justify-center transition-all duration-300 text-xs font-black uppercase tracking-wider"
+            aria-label="Toggle mobile menu"
+          >
+            Menu
+          </button>
           {currentUser ? (
-            <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4">
               <Link to="/profile" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <span className="text-blue-700 font-bold text-lg">{currentUser.user?.firstName?.charAt(0) || 'U'}</span>
@@ -106,13 +117,32 @@ const Navbar = () => {
           ) : (
             <Link
               to="/auth"
-              className="bg-white text-blue-700 hover:bg-blue-50 hover:scale-105 active:scale-95 shadow-lg px-6 py-2.5 rounded-full font-bold transition-all duration-300"
+              className="hidden sm:inline-flex bg-white text-blue-700 hover:bg-blue-50 hover:scale-105 active:scale-95 shadow-lg px-6 py-2.5 rounded-full font-bold transition-all duration-300"
             >
               Get Started
             </Link>
           )}
         </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <div className="mt-4 md:hidden rounded-2xl border border-white/20 bg-blue-900/45 p-4 backdrop-blur-md">
+          <div className="flex flex-col gap-3 text-sm font-bold text-blue-50">
+            <Link to="/" onClick={closeMobileMenu} className="rounded-xl bg-white/10 px-3 py-2 hover:bg-white/20">Home</Link>
+            <Link to="/events" onClick={closeMobileMenu} className="rounded-xl bg-white/10 px-3 py-2 hover:bg-white/20">Events</Link>
+            <Link to="/create-event" onClick={closeMobileMenu} className="rounded-xl bg-white/10 px-3 py-2 hover:bg-white/20">Event Creation</Link>
+            {currentUser && (
+              <>
+                <Link to="/profile" onClick={closeMobileMenu} className="rounded-xl bg-white/10 px-3 py-2 hover:bg-white/20">Profile</Link>
+                <button onClick={handleLogout} className="rounded-xl bg-red-500/20 border border-red-500/40 px-3 py-2 text-left hover:bg-red-500/30">Logout</button>
+              </>
+            )}
+            {!currentUser && (
+              <Link to="/auth" onClick={closeMobileMenu} className="rounded-xl bg-white text-blue-700 px-3 py-2">Get Started</Link>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

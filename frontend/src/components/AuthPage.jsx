@@ -139,7 +139,7 @@ const LoginView = ({
         <div className="relative z-20 w-full flex flex-col min-h-screen">
 
             {/* TOP NAV */}
-            <header className="w-full flex items-center justify-between px-10 lg:px-16 pt-8 pb-4">
+            <header className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 pb-4 gap-3">
                 {/* Logo */}
                 <div className="flex items-center gap-3 group cursor-default">
                     <div className="relative w-12 h-12 flex items-center justify-center">
@@ -158,7 +158,7 @@ const LoginView = ({
                 </div>
 
                 {/* Nav */}
-                <nav className="flex items-center gap-3">
+                <nav className="hidden sm:flex items-center gap-3">
                     <button
                         onClick={onHome}
                         className="text-white/70 hover:text-white text-[11px] font-bold uppercase tracking-widest px-5 py-2 bg-white/5 hover:bg-white/15 rounded-full border border-white/15 transition-all backdrop-blur-md"
@@ -181,15 +181,15 @@ const LoginView = ({
             </header>
 
             {/* MAIN */}
-            <main className="flex-1 flex items-center">
-                <div className="w-[52%] flex justify-center">
-                <div className="w-full max-w-sm px-4 flex flex-col justify-center">
+            <main className="flex-1 flex items-start lg:items-center pt-4 lg:pt-0">
+                <div className="w-full lg:w-[52%] flex justify-center px-4 sm:px-6">
+                <div className="w-full max-w-sm flex flex-col justify-center">
 
                     <div className="animate-form-reveal" style={{ animationDelay: '0.1s' }}>
                         <p className="text-slate-400 text-2xl font-light mb-1">Welcome Back,</p>
                     </div>
                     <div className="animate-form-reveal" style={{ animationDelay: '0.18s' }}>
-                        <h1 className="text-slate-900 font-black tracking-tighter leading-tight mb-12 whitespace-nowrap" style={{ fontSize: 'clamp(2rem, 3.2vw, 3.8rem)' }}>
+                        <h1 className="text-slate-900 font-black tracking-tighter leading-tight mb-10 lg:mb-12" style={{ fontSize: 'clamp(1.85rem, 8vw, 3.8rem)' }}>
                             Manage your <span className="text-blue-600">Events</span>
                         </h1>
                     </div>
@@ -309,7 +309,7 @@ const LoginView = ({
                 </div>
 
                 {/* Right side — photo shows through */}
-                <div className="flex-1" />
+                <div className="hidden lg:block flex-1" />
             </main>
         </div>
 
@@ -383,15 +383,15 @@ const RegisterView = ({
         <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-500/10 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-125 h-125 bg-indigo-500/10 rounded-full blur-[150px] animate-pulse" />
 
-        <div className="fixed top-8 right-8 z-100 flex gap-4 items-center">
-            <button onClick={() => setIsLogin(true)} className="px-6 py-2.5 bg-black/20 backdrop-blur-2xl border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl hover:bg-blue-600/40 hover:border-blue-400/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
+        <div className="fixed top-4 right-4 sm:top-8 sm:right-8 z-100 flex gap-2 sm:gap-4 items-center">
+            <button onClick={() => setIsLogin(true)} className="px-4 sm:px-6 py-2.5 bg-black/20 backdrop-blur-2xl border border-white/20 text-white font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full shadow-xl hover:bg-blue-600/40 hover:border-blue-400/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
                 <svg className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back to Login
             </button>
             <div className="h-4 w-px bg-white/10"></div>
-            <button onClick={onHome} className="px-6 py-2.5 bg-white/10 backdrop-blur-2xl border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
+            <button onClick={onHome} className="px-4 sm:px-6 py-2.5 bg-white/10 backdrop-blur-2xl border border-white/20 text-white font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] rounded-full shadow-xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
                 <svg className="w-3.5 h-3.5 group-hover:scale-125 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
@@ -399,7 +399,7 @@ const RegisterView = ({
             </button>
         </div>
 
-        <div className="relative w-full max-w-5xl h-175 bg-white rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden flex">
+        <div className="relative w-full max-w-5xl h-auto lg:h-175 bg-white rounded-[28px] sm:rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col lg:flex-row">
             <div className="relative w-[45%] h-full overflow-hidden hidden lg:block">
                 <img src="/event-auth-bg.png" className="w-full h-full object-cover blur-[1px] scale-110" alt="bg" />
                 <div className="absolute inset-0 bg-[#1e40af]/90 backdrop-blur-[1px] flex flex-col items-center justify-center text-center p-12 text-white">
@@ -409,7 +409,7 @@ const RegisterView = ({
                 </div>
             </div>
 
-            <div className="flex-1 h-full flex flex-col items-center justify-start px-14 py-8 bg-white overflow-y-auto">
+            <div className="flex-1 h-full flex flex-col items-center justify-start px-5 sm:px-8 lg:px-14 py-8 bg-white overflow-y-auto">
                 <h1 className="text-3xl font-extrabold text-slate-800 mb-6">Create Account</h1>
 
                 <div className="flex gap-4 mb-6">
@@ -486,8 +486,8 @@ const RegisterView = ({
                         <option value="organizer">Organizer</option>
                     </select>
 
-                    <div className="pt-4 flex flex-col items-center">
-                        <button type="submit" disabled={loading} className="px-16 py-3.5 bg-blue-600 text-white font-bold uppercase tracking-widest text-xs rounded-full shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:scale-105 transition-all">
+                    <div className="pt-4 flex flex-col items-center w-full">
+                        <button type="submit" disabled={loading} className="w-full sm:w-auto px-8 sm:px-16 py-3.5 bg-blue-600 text-white font-bold uppercase tracking-widest text-xs rounded-full shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:scale-105 transition-all">
                             {loading ? 'Signing up...' : 'Sign Up'}
                         </button>
                     </div>

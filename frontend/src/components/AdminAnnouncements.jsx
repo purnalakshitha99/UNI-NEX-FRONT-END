@@ -6,16 +6,16 @@ const AdminAnnouncements = () => {
         <div className="min-h-screen bg-[#020617] flex font-sans overflow-hidden">
             <AdminSidebar />
             
-            <main className="ml-72 flex-1 p-12 overflow-y-auto">
-                <header className="mb-12 flex justify-between items-end animate-fade-in">
+            <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-12 lg:pt-12 overflow-y-auto">
+                <header className="mb-8 sm:mb-12 flex justify-between items-end animate-fade-in">
                     <div>
                         <p className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Communication Suite</p>
                         <h1 className="text-4xl font-black text-white tracking-tighter">Broadcasting <span className="text-blue-500">Service</span></h1>
                     </div>
                 </header>
 
-                <div className="bg-slate-900/40 rounded-[40px] border border-slate-800 backdrop-blur-xl p-12 animate-slide-up">
-                    <div className="flex gap-10 items-start">
+                <div className="bg-slate-900/40 rounded-[40px] border border-slate-800 backdrop-blur-xl p-5 sm:p-8 lg:p-12 animate-slide-up">
+                    <div className="flex flex-col gap-6 sm:gap-10 sm:flex-row sm:items-start">
                         <div className="w-16 h-16 bg-blue-600/10 text-blue-500 rounded-3xl flex items-center justify-center text-3xl">
                             📢
                         </div>

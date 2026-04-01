@@ -161,9 +161,9 @@ const AdminEventBookings = () => {
     <div className="flex min-h-screen bg-[#f8fafc]">
       <AdminSidebar />
 
-      <main className="ml-72 flex-1 p-10">
+      <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-10 lg:pt-10">
         {/* ─── Header ─── */}
-        <div className="mb-10 flex items-center justify-between">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-4xl font-black tracking-tight text-slate-900">
               Event <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Bookings</span>
@@ -181,9 +181,9 @@ const AdminEventBookings = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 gap-8 xl:grid-cols-12 xl:gap-10">
           {/* ══════ LEFT PANEL – Event Explorer ══════ */}
-          <div className="col-span-4 space-y-6">
+          <div className="xl:col-span-4 space-y-6">
             {/* Search */}
             <div className="group relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-indigo-500">🔍</span>
@@ -275,7 +275,7 @@ const AdminEventBookings = () => {
           </div>
 
           {/* ══════ RIGHT PANEL – Intelligence Dashboard ══════ */}
-          <div className="col-span-8">
+          <div className="xl:col-span-8">
             {!selectedEvent ? (
               <div className="relative h-full min-h-[500px] overflow-hidden rounded-[40px] border-4 border-dashed border-white bg-slate-100/30">
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-12">
@@ -303,10 +303,10 @@ const AdminEventBookings = () => {
                       <div className="h-full w-full bg-gradient-to-br from-indigo-500 to-violet-600 opacity-80" />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute bottom-6 left-8 right-8 flex items-end justify-between">
+                    <div className="absolute bottom-6 left-6 right-6 flex flex-col items-start gap-3 sm:left-8 sm:right-8 sm:flex-row sm:items-end sm:justify-between">
                        <div>
                          <span className="rounded-full bg-indigo-500/30 backdrop-blur-md px-3 py-1 text-[10px] font-black uppercase tracking-widest text-indigo-200 ring-1 ring-white/20">Dashboard Alpha</span>
-                         <h2 className="mt-2 text-3xl font-black text-white tracking-tight">{selectedEvent.title}</h2>
+                         <h2 className="mt-2 text-2xl sm:text-3xl font-black text-white tracking-tight">{selectedEvent.title}</h2>
                        </div>
                        <div className="text-right">
                           <p className="text-lg font-black text-white">{fmt(selectedEvent.startDate)}</p>
@@ -326,7 +326,7 @@ const AdminEventBookings = () => {
                    </div>
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
                       <StatCard icon="💎" label="Registry Total" value={totalBookings} sub="Unified Registrations" gradient="from-slate-700 to-slate-900 text-white" />
                       <StatCard icon="💳" label="Digital Flow" value={cardRegs.length} sub="Card Payments" gradient="from-indigo-500 to-blue-600 text-white" />
                       <StatCard icon="🧾" label="Slip Nodes" value={slipRegs.length} sub={`${slipRegs.filter(s=>s.status==='pending').length} Action Required`} gradient="from-violet-500 to-fuchsia-600 text-white" />
@@ -334,7 +334,7 @@ const AdminEventBookings = () => {
                     </div>
 
                     {/* Multi-Segmented Controller (Tabs) */}
-                    <div className="flex rounded-3xl bg-white/50 border border-white p-1.5 shadow-xl shadow-slate-200/50 backdrop-blur-sm">
+                    <div className="flex flex-col gap-2 rounded-3xl bg-white/50 border border-white p-1.5 shadow-xl shadow-slate-200/50 backdrop-blur-sm sm:flex-row sm:gap-0">
                       <button
                         onClick={() => setActiveTab('card')}
                         className={`flex-1 rounded-2xl px-6 py-4 text-[10px] font-black uppercase tracking-widest transition-all ${
@@ -358,7 +358,7 @@ const AdminEventBookings = () => {
                     </div>
 
                     {/* Intelligence Filter Bar */}
-                    <div className="flex gap-4">
+                    <div className="flex flex-col gap-4 sm:flex-row">
                       <div className="group relative flex-1">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-indigo-500">🔍</span>
                         <input

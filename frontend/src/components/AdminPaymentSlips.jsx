@@ -169,7 +169,7 @@ const AdminPaymentSlips = () => {
     <div className="flex min-h-screen bg-[#f1f5f9]">
       <AdminSidebar />
 
-      <main className="ml-72 flex-1 p-8">
+      <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-8 lg:pt-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-black text-slate-900">Payment Slips</h1>
@@ -177,7 +177,7 @@ const AdminPaymentSlips = () => {
         </div>
 
         {/* Stats */}
-        <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatsCard label="Total" value={stats.total} icon="🧾" color="border-slate-200" />
           <StatsCard label="Pending" value={stats.pending} icon="⏳" color="border-amber-200" />
           <StatsCard label="Approved" value={stats.approved} icon="✅" color="border-emerald-200" />

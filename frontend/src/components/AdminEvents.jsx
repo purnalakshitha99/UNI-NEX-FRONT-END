@@ -95,8 +95,8 @@ const AdminEvents = () => {
         <div className="min-h-screen bg-[#020617] flex font-sans overflow-hidden">
             <AdminSidebar />
             
-            <main className="ml-72 flex-1 p-12 overflow-y-auto">
-                <header className="mb-8 flex justify-between items-end animate-fade-in">
+                <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-12 lg:pt-12 overflow-y-auto">
+                <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-end animate-fade-in">
                     <div>
                         <p className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Event Coordination</p>
                         <h1 className="text-4xl font-black text-white tracking-tighter">Event <span className="text-blue-500">Inventory</span></h1>
@@ -145,7 +145,8 @@ const AdminEvents = () => {
                 ) : (
                     /* Events Table */
                     <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-xl animate-slide-up">
-                        <table className="w-full">
+                            <div className="overflow-x-auto">
+                            <table className="w-full min-w-[920px]">
                             <thead>
                                 <tr className="border-b border-slate-800 bg-slate-900/60">
                                     <th className="px-6 py-4 text-left text-xs font-black uppercase tracking-widest text-slate-400">Image</th>
@@ -227,6 +228,7 @@ const AdminEvents = () => {
                                 ))}
                             </tbody>
                         </table>
+                            </div>
                         <div className="border-t border-slate-800 bg-slate-900/40 px-6 py-4">
                             <p className="text-slate-400 text-sm font-bold">
                                 Showing {filteredEvents.length} of {events.length} events

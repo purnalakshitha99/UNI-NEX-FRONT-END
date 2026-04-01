@@ -252,8 +252,8 @@ const AdminAttendance = () => {
     <div className="flex min-h-screen bg-slate-100">
       <AdminSidebar />
 
-      <main className="ml-72 flex-1 p-8">
-        <div className="mb-6 flex items-center justify-between">
+      <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-8 lg:pt-8">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-black text-slate-900">Event Attendance Scanner</h1>
             <p className="mt-1 text-sm font-semibold text-slate-500">Scan student QR codes and mark attendance instantly.</p>
@@ -272,8 +272,8 @@ const AdminAttendance = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-12 gap-6">
-          <section className="col-span-4 rounded-3xl bg-white p-5 shadow">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
+          <section className="xl:col-span-4 rounded-3xl bg-white p-5 shadow">
             <h2 className="mb-4 text-sm font-black uppercase tracking-wider text-slate-500">Events</h2>
             <div className="max-h-[68vh] space-y-3 overflow-y-auto pr-1">
               {events.map((event) => {
@@ -297,7 +297,7 @@ const AdminAttendance = () => {
             </div>
           </section>
 
-          <section className="col-span-8 space-y-6">
+          <section className="xl:col-span-8 space-y-6">
             <div className="rounded-3xl bg-white p-6 shadow">
               <div className="mb-4 flex flex-wrap items-center gap-3">
                 <button
@@ -322,7 +322,7 @@ const AdminAttendance = () => {
               <div id={scannerElementId} className="min-h-65 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-2" />
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-2xl bg-white p-4 shadow">
                 <p className="text-[11px] font-black uppercase tracking-wider text-slate-400">Registered</p>
                 <p className="mt-2 text-2xl font-black text-slate-900">{stats.totalRegistrations}</p>
@@ -338,14 +338,14 @@ const AdminAttendance = () => {
             </div>
 
             <div className="rounded-3xl bg-white p-6 shadow">
-              <div className="mb-4 flex items-center justify-between gap-4">
+              <div className="mb-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-lg font-black text-slate-900">Student Attendance Details</h2>
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by name, email, student ID, ticket"
-                  className="w-[320px] rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:border-blue-400"
+                  className="w-full sm:w-[320px] rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 outline-none focus:border-blue-400"
                 />
               </div>
 
@@ -355,7 +355,7 @@ const AdminAttendance = () => {
                 <p className="py-8 text-center text-sm font-bold text-slate-400">No registrations found.</p>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full min-w-215 text-left text-sm">
+                  <table className="w-full min-w-[860px] text-left text-sm">
                     <thead>
                       <tr className="border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500">
                         <th className="py-3">Student</th>

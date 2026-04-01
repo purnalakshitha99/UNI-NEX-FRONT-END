@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import AuthService from '../services/authService';
 
 const AdminSidebar = () => {
     const navigate = useNavigate();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleLogout = () => {
         AuthService.logout();
+        setIsMobileMenuOpen(false);
         navigate('/auth');
     };
+
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
     const navItems = [
         { path: '/admin/dashboard', icon: '📊', label: 'Dashboard' },
@@ -22,63 +26,92 @@ const AdminSidebar = () => {
     ];
 
     return (
-        <aside className="fixed left-0 top-0 h-screen w-72 bg-[#0f172a] text-slate-300 flex flex-col z-50 border-r border-slate-800 shadow-2xl">
-            {/* Logo area */}
-            <div className="p-8 flex items-center gap-4">
-                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                    <span className="text-white font-black text-xl italic">A</span>
-                </div>
-                <div className="flex flex-col">
-                    <span className="text-white text-lg font-black tracking-tight leading-none">Admin</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Control Suite</span>
-                </div>
-            </div>
-
-            {/* Navigation Navigation */}
-            <nav className="flex-1 px-4 py-6 space-y-2">
-                {navItems.map((item) => (
-                    <NavLink
-                        key={item.path}
-                        to={item.path}
-                        className={({ isActive }) => `
-                            flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group
-                            ${isActive 
-                                ? 'bg-blue-600/10 text-blue-500 border border-blue-600/20' 
-                                : 'hover:bg-slate-800/50 hover:text-white border border-transparent'}
-                        `}
-                    >
-                        <span className="text-xl group-hover:scale-125 transition-transform">{item.icon}</span>
-                        <span className="font-bold text-sm tracking-wide">{item.label}</span>
-                        {item.path === '/admin/dashboard' && (
-                            <div className="ml-auto w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-sm"></div>
-                        )}
-                    </NavLink>
-                ))}
-            </nav>
-
-            {/* Bottom Section */}
-            <div className="p-6 border-t border-slate-800 bg-[#0b1121]">
-                <div className="flex items-center gap-4 mb-6 px-2">
-                    <div className="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-white font-black">
-                        A
+        <>
+            <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-slate-800 bg-[#0f172a]/95 px-4 py-3 text-white backdrop-blur lg:hidden">
+                <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                        <span className="text-white font-black text-lg italic">A</span>
                     </div>
                     <div>
-                        <p className="text-xs font-black text-white">System Admin</p>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Main Controller</p>
+                        <p className="text-sm font-black leading-none">Admin</p>
+                        <p className="text-[10px] uppercase tracking-widest text-slate-400">Control Suite</p>
                     </div>
                 </div>
-                
-                <button 
-                    onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all border border-red-500/20 shadow-lg shadow-red-500/5"
+                <button
+                    onClick={() => setIsMobileMenuOpen(true)}
+                    className="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2 text-xs font-black uppercase tracking-wider"
                 >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Terminate Session
+                    Menu
                 </button>
-            </div>
-        </aside>
+            </header>
+
+            {isMobileMenuOpen && (
+                <button
+                    onClick={closeMobileMenu}
+                    className="fixed inset-0 z-40 bg-slate-950/55 lg:hidden"
+                    aria-label="Close menu"
+                />
+            )}
+
+            <aside className={`fixed left-0 top-0 z-50 h-screen w-[85vw] max-w-72 bg-[#0f172a] text-slate-300 flex flex-col border-r border-slate-800 shadow-2xl transition-transform duration-300 lg:w-72 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+                {/* Logo area */}
+                <div className="p-8 flex items-center gap-4">
+                    <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                        <span className="text-white font-black text-xl italic">A</span>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-white text-lg font-black tracking-tight leading-none">Admin</span>
+                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Control Suite</span>
+                    </div>
+                </div>
+
+                {/* Navigation */}
+                <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                    {navItems.map((item) => (
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            onClick={closeMobileMenu}
+                            className={({ isActive }) => `
+                                flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group
+                                ${isActive
+                                    ? 'bg-blue-600/10 text-blue-500 border border-blue-600/20'
+                                    : 'hover:bg-slate-800/50 hover:text-white border border-transparent'}
+                            `}
+                        >
+                            <span className="text-xl group-hover:scale-125 transition-transform">{item.icon}</span>
+                            <span className="font-bold text-sm tracking-wide">{item.label}</span>
+                            {item.path === '/admin/dashboard' && (
+                                <div className="ml-auto w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-sm"></div>
+                            )}
+                        </NavLink>
+                    ))}
+                </nav>
+
+                {/* Bottom Section */}
+                <div className="p-6 border-t border-slate-800 bg-[#0b1121]">
+                    <div className="flex items-center gap-4 mb-6 px-2">
+                        <div className="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-white font-black">
+                            A
+                        </div>
+                        <div>
+                            <p className="text-xs font-black text-white">System Admin</p>
+                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Main Controller</p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center justify-center gap-2 py-3.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all border border-red-500/20 shadow-lg shadow-red-500/5"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Terminate Session
+                    </button>
+                </div>
+            </aside>
+        </>
     );
 };
 

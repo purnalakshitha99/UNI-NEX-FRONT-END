@@ -53,19 +53,19 @@ const AdminUsers = () => {
         <div className="min-h-screen bg-[#020617] flex font-sans overflow-hidden">
             <AdminSidebar />
             
-            <main className="ml-72 flex-1 p-12 overflow-y-auto">
-                <header className="mb-8 flex justify-between items-end animate-fade-in">
+            <main className="flex-1 p-4 pt-24 sm:p-6 sm:pt-24 lg:ml-72 lg:p-12 lg:pt-12 overflow-y-auto">
+                <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-end animate-fade-in">
                     <div>
                         <p className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2 leading-none">User Management</p>
                         <h1 className="text-4xl font-black text-white tracking-tighter">System <span className="text-blue-500">Directory</span></h1>
                     </div>
                     
-                    <div className="flex gap-4">
+                    <div className="flex w-full sm:w-auto gap-4">
                         <div className="relative group">
                             <input 
                                 type="text" 
                                 placeholder="Search by name or email..."
-                                className="bg-slate-900/50 border border-slate-800 rounded-2xl py-3 px-12 text-sm text-white outline-none focus:border-blue-500 transition-all w-80 backdrop-blur-xl"
+                                className="bg-slate-900/50 border border-slate-800 rounded-2xl py-3 px-12 text-sm text-white outline-none focus:border-blue-500 transition-all w-full sm:w-80 backdrop-blur-xl"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -76,7 +76,7 @@ const AdminUsers = () => {
                     </div>
                 </header>
 
-                <div className="flex gap-4 mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <div className="flex flex-wrap gap-3 sm:gap-4 mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
                     {[
                         { id: 'all', label: 'All Users', icon: '🌍' },
                         { id: 'student', label: 'Students', icon: '🎓' },
@@ -99,7 +99,8 @@ const AdminUsers = () => {
                 </div>
 
                 <div className="bg-slate-900/40 rounded-[40px] border border-slate-800 backdrop-blur-xl overflow-hidden animate-slide-up">
-                    <table className="w-full text-left">
+                    <div className="overflow-x-auto">
+                    <table className="w-full min-w-[840px] text-left">
                         <thead>
                             <tr className="border-b border-slate-800">
                                 <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Identify</th>
@@ -161,6 +162,7 @@ const AdminUsers = () => {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </main>
 
