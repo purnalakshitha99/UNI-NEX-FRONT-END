@@ -20,7 +20,7 @@ import AdminSettings from './components/AdminSettings';
 import AdminPaymentSlips from './components/AdminPaymentSlips';
 import AdminEventBookings from './components/AdminEventBookings';
 import AdminAttendance from './components/AdminAttendance';
-import CreateEventPage from './components/Createeventpage';
+import CreateEventPage from './components/CreateEventPage';
 import MyEventsPage from './components/MyEventsPage';
 import EventsPage from './components/EventsPage';
 import EventPaymentPage from './components/EventPaymentPage';
