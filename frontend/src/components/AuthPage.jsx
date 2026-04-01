@@ -528,6 +528,7 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
     const [registerFaculty, setRegisterFaculty] = useState(''); 
 
     const [loading, setLoading] = useState(false);
+    const [, setPendingEmail] = useState('');
 
     const facultyPrefix = FACULTY_PREFIX[registerFaculty] || '';
     const handleLogin = async (e) => {
@@ -555,8 +556,15 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
         const errorMsg = err.response?.data?.message;
         
         if (errorMsg === "Please verify your email first") {
-            // Keep user on the home page but they'll see their status in Navbar (if verified/not)
-            navigate('/');
+            const emailForResend = loginEmail.trim().toLowerCase();
+            setPendingEmail(emailForResend);
+            toast.info('Please verify your email first. You can resend the link now.');
+            navigate('/verification-pending', {
+                state: {
+                    email: emailForResend,
+                    message: 'Your account is not verified yet.'
+                }
+            });
         } else {
             toast.error(errorMsg || 'Login failed');
         }
@@ -588,11 +596,13 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
         return;
     }
 
+    const normalizedEmail = registerEmail.trim().toLowerCase();
+
     const userData = {
         firstName: registerFirstName,
         lastName: registerLastName,
         phone: registerPhone,
-        email: registerEmail,
+        email: normalizedEmail,
         password: registerPassword,
         confirmPassword: registerConfirmPassword,
         role: registerRole,
@@ -604,19 +614,33 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
         const response = await AuthService.register(userData);
         
         if (response.data.success) {
+            setPendingEmail(normalizedEmail);
             // DON'T store user or token automatically
             // DON'T redirect to dashboard
             
             // Show success message and redirect to verification pending page
             navigate('/verification-pending', { 
                 state: { 
-                    email: registerEmail,
+                    email: normalizedEmail,
                     message: response.data.message 
                 } 
             });
         }
     } catch (err) {
-        toast.error(err.response?.data?.message || 'Registration failed');
+        const backendMessage = err.response?.data?.message || 'Registration failed';
+
+        if (backendMessage.includes('verification email sending failed')) {
+            setPendingEmail(normalizedEmail);
+            toast.warn('Account created, but email sending failed. Please resend verification.');
+            navigate('/verification-pending', {
+                state: {
+                    email: normalizedEmail,
+                    message: backendMessage
+                }
+            });
+        } else {
+            toast.error(backendMessage);
+        }
     } finally {
         setLoading(false);
     }
