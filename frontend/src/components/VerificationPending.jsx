@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import AuthService from '../services/authService';
 
 const VerificationPending = () => {
     const location = useLocation();
@@ -7,6 +9,24 @@ const VerificationPending = () => {
     const userObj = userStr ? JSON.parse(userStr) : null;
     const email = location.state?.email || userObj?.user?.email || 'your email';
     const message = location.state?.message || 'Registration successful!';
+    const [resending, setResending] = useState(false);
+
+    const handleResend = async () => {
+        if (!email || email === 'your email') {
+            toast.error('Email address not found. Please enter it again from login/signup.');
+            return;
+        }
+
+        try {
+            setResending(true);
+            const response = await AuthService.resendVerification(email);
+            toast.success(response.data?.message || 'Verification email resent successfully');
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to resend verification email');
+        } finally {
+            setResending(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -44,11 +64,13 @@ const VerificationPending = () => {
                         Go to Login
                     </Link>
 
-                    <button 
-                        onClick={() => window.location.reload()}
-                        className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
+                    <button
+                        type="button"
+                        onClick={handleResend}
+                        disabled={resending}
+                        className="text-sm text-gray-500 hover:text-blue-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                        Didn't receive email? Check spam folder
+                        {resending ? 'Resending...' : "Didn't receive email? Resend verification email"}
                     </button>
                 </div>
             </div>
