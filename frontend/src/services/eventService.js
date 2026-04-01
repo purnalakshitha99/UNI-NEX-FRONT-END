@@ -2,7 +2,7 @@ import axios from 'axios';
 import AuthService from './authService';
 
 // const API_URL = 'http://localhost:5000/api/v1/events';
-const API_URL = 'https://your-backend.onrender.com/api/v1/events';
+const API_URL = 'https://uni-nex-api.onrender.com/api/v1/events';
 
 const toFormData = (eventData) => {
   const formData = new FormData();

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:5000/api/v1/auth';
-const API_URL = 'https://your-backend.onrender.com/api/v1/auth';
+const API_URL = 'https://uni-nex-api.onrender.com/api/v1/auth';
 
 const register = (userData) => {
     return axios.post(`${API_URL}/register`, userData);
