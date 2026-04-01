@@ -546,9 +546,9 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
             
             // Redirect based on role
             if (response.data.user?.role === 'admin') {
-                window.location.href = '/admin/dashboard';
+                navigate('/admin/dashboard');
             } else {
-                window.location.href = '/';
+                navigate('/');
             }
         }
     } catch (err) {
@@ -556,7 +556,7 @@ const AuthPage = ({ onHome: onHomeProp, initialMode = 'login' }) => {
         
         if (errorMsg === "Please verify your email first") {
             // Keep user on the home page but they'll see their status in Navbar (if verified/not)
-            window.location.href = '/';
+            navigate('/');
         } else {
             toast.error(errorMsg || 'Login failed');
         }

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import AuthService from './authService';
 
-// const API_URL = 'http://localhost:5000/api/v1/payment-slips';
-const API_URL = 'https://uni-nex-api.onrender.com/api/v1/payment-slips';
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || 'https://uni-nex-api.onrender.com'
+).replace(/\/$/, '');
+const API_URL = `${API_BASE_URL}/api/v1/payment-slips`;
 
 const getAuthHeaders = () => ({
   Authorization: `Bearer ${AuthService.getAuthToken()}`,
